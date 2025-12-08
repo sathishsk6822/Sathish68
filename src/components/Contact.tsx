@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import FadeInOnScroll from "./motion/FadeInOnScroll";
+import GlassCard from "./motion/GlassCard";
 
 interface FormData {
   name: string;
@@ -19,8 +19,7 @@ interface FormErrors {
 }
 
 const Contact = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldReduceMotion = useReducedMotion();
   
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -61,7 +60,6 @@ const Contact = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -77,18 +75,13 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Mock API call - replace with EmailJS or Formspree
-    // For EmailJS: https://www.emailjs.com/docs/sdk/send/
-    // For Formspree: https://formspree.io/
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       
-      // Simulate success
       setIsSubmitted(true);
       toast.success("Thank you! I will get back to you soon.");
       setFormData({ name: "", email: "", message: "" });
       
-      // Reset success state after a delay
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -98,156 +91,162 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/30 relative">
-      <div className="absolute inset-0 grid-pattern opacity-20" />
-
+    <section id="contact" className="py-24 relative section-glass">
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div ref={ref}>
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.2 }}
-              className="text-primary font-medium text-sm uppercase tracking-wider"
-            >
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <FadeInOnScroll>
+            <span className="text-primary font-medium text-sm uppercase tracking-wider">
               Get In Touch
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="text-3xl md:text-4xl font-heading font-bold mt-4"
-            >
+            </span>
+          </FadeInOnScroll>
+          <FadeInOnScroll delay={0.1}>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mt-4">
               Let's <span className="gradient-text">Connect</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              className="text-muted-foreground mt-4 max-w-lg mx-auto"
-            >
+            </h2>
+          </FadeInOnScroll>
+          <FadeInOnScroll delay={0.2}>
+            <p className="text-muted-foreground mt-4 max-w-lg mx-auto">
               Have a project in mind or want to discuss data analytics opportunities? I'd love to hear from you!
-            </motion.p>
+            </p>
+          </FadeInOnScroll>
+        </div>
+
+        {/* Contact Form */}
+        <FadeInOnScroll delay={0.3}>
+          <div className="max-w-xl mx-auto">
+            <GlassCard className="p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name Field */}
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Name
+                  </label>
+                  <motion.input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-lg bg-background/50 border ${
+                      errors.name ? "border-destructive" : "border-border/50"
+                    } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300`}
+                    placeholder="Your name"
+                    whileFocus={!shouldReduceMotion ? { scale: 1.01 } : {}}
+                  />
+                  {errors.name && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-destructive flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-4 h-4" />
+                      {errors.name}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Email Field */}
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Email
+                  </label>
+                  <motion.input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-lg bg-background/50 border ${
+                      errors.email ? "border-destructive" : "border-border/50"
+                    } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300`}
+                    placeholder="your.email@example.com"
+                    whileFocus={!shouldReduceMotion ? { scale: 1.01 } : {}}
+                  />
+                  {errors.email && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-destructive flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-4 h-4" />
+                      {errors.email}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Message Field */}
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
+                    Message
+                  </label>
+                  <motion.textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={5}
+                    className={`w-full px-4 py-3 rounded-lg bg-background/50 border ${
+                      errors.message ? "border-destructive" : "border-border/50"
+                    } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-300 resize-none`}
+                    placeholder="Tell me about your project or inquiry..."
+                    whileFocus={!shouldReduceMotion ? { scale: 1.01 } : {}}
+                  />
+                  {errors.message && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-destructive flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-4 h-4" />
+                      {errors.message}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <motion.div
+                  whileHover={!shouldReduceMotion ? { scale: 1.02 } : {}}
+                  whileTap={!shouldReduceMotion ? { scale: 0.98 } : {}}
+                >
+                  <Button
+                    type="submit"
+                    variant="gradient"
+                    size="lg"
+                    className="w-full"
+                    disabled={isSubmitting || isSubmitted}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Sending...
+                      </>
+                    ) : isSubmitted ? (
+                      <>
+                        <CheckCircle className="w-5 h-5" />
+                        Message Sent!
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </motion.div>
+              </form>
+            </GlassCard>
           </div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.5 }}
-            className="max-w-xl mx-auto"
-          >
-            <form onSubmit={handleSubmit} className="glass-card rounded-xl p-8 space-y-6">
-              {/* Name Field */}
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-background border ${
-                    errors.name ? "border-destructive" : "border-border"
-                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all`}
-                  placeholder="Your name"
-                />
-                {errors.name && (
-                  <p className="mt-2 text-sm text-destructive flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.name}
-                  </p>
-                )}
-              </div>
-
-              {/* Email Field */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-background border ${
-                    errors.email ? "border-destructive" : "border-border"
-                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all`}
-                  placeholder="your.email@example.com"
-                />
-                {errors.email && (
-                  <p className="mt-2 text-sm text-destructive flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-
-              {/* Message Field */}
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-foreground mb-2"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={5}
-                  className={`w-full px-4 py-3 rounded-lg bg-background border ${
-                    errors.message ? "border-destructive" : "border-border"
-                  } text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none`}
-                  placeholder="Tell me about your project or inquiry..."
-                />
-                {errors.message && (
-                  <p className="mt-2 text-sm text-destructive flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                variant="gradient"
-                size="lg"
-                className="w-full"
-                disabled={isSubmitting || isSubmitted}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Sending...
-                  </>
-                ) : isSubmitted ? (
-                  <>
-                    <CheckCircle className="w-5 h-5" />
-                    Message Sent!
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            </form>
-          </motion.div>
-        </motion.div>
+        </FadeInOnScroll>
       </div>
     </section>
   );

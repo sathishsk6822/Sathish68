@@ -1,10 +1,9 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import jewelleryDashboard from "@/assets/jewellery-dashboard.png";
 import playstoreDashboard from "@/assets/playstore-dashboard.png";
 import olaDashboard from "@/assets/ola-dashboard.png";
+import FadeInOnScroll from "./motion/FadeInOnScroll";
 
 const projects = [
   {
@@ -37,110 +36,106 @@ const ProjectCard = ({
   project: (typeof projects)[0];
   index: number;
 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="group"
-    >
-      <div className="glass-card rounded-xl overflow-hidden hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 h-full flex flex-col">
-        {/* Image */}
-        <div className="relative overflow-hidden aspect-video">
-          <motion.img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
-          
-          {/* Overlay on Hover */}
-          <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+    <FadeInOnScroll delay={index * 0.15} direction="up">
+      <motion.div
+        className="group h-full"
+        whileHover={!shouldReduceMotion ? { y: -8 } : {}}
+        transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+      >
+        <div className="glass-card rounded-xl overflow-hidden h-full flex flex-col transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-xl group-hover:shadow-primary/10">
+          {/* Image */}
+          <div className="relative overflow-hidden aspect-video">
+            <motion.img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              whileHover={!shouldReduceMotion ? { scale: 1.08 } : {}}
+              transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-60" />
+            
+            {/* Overlay on Hover */}
             <motion.div
-              initial={{ scale: 0 }}
-              whileHover={{ scale: 1.1 }}
-              className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground"
+              className="absolute inset-0 bg-primary/20 backdrop-blur-sm flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
             >
-              <ExternalLink className="w-5 h-5" />
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 flex-1 flex flex-col">
-          <h3 className="font-heading font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
-            {project.title}
-          </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
-            {project.description}
-          </p>
-          
-          {/* Tech Tags */}
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+              <motion.div
+                className="w-14 h-14 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/30"
+                whileHover={!shouldReduceMotion ? { scale: 1.1 } : {}}
+                whileTap={{ scale: 0.95 }}
               >
-                {tech}
-              </span>
-            ))}
+                <ExternalLink className="w-6 h-6" />
+              </motion.div>
+            </motion.div>
+
+            {/* Glow effect on hover */}
+            <motion.div
+              className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+            />
+          </div>
+
+          {/* Content */}
+          <div className="p-6 flex-1 flex flex-col">
+            <h3 className="font-heading font-semibold text-xl mb-3 group-hover:text-primary transition-colors duration-300">
+              {project.title}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+              {project.description}
+            </p>
+            
+            {/* Tech Tags */}
+            <div className="flex flex-wrap gap-2">
+              {project.tech.map((tech) => (
+                <motion.span
+                  key={tech}
+                  className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 transition-all duration-300 hover:bg-primary/20 hover:border-primary/40"
+                  whileHover={!shouldReduceMotion ? { scale: 1.05 } : {}}
+                >
+                  {tech}
+                </motion.span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </FadeInOnScroll>
   );
 };
 
 const Projects = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="projects" className="py-24 relative">
-      <div className="absolute inset-0 data-dots opacity-10" />
-
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div ref={ref}>
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.2 }}
-              className="text-primary font-medium text-sm uppercase tracking-wider"
-            >
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <FadeInOnScroll>
+            <span className="text-primary font-medium text-sm uppercase tracking-wider">
               My Work
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="text-3xl md:text-4xl font-heading font-bold mt-4"
-            >
+            </span>
+          </FadeInOnScroll>
+          <FadeInOnScroll delay={0.1}>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mt-4">
               Featured <span className="gradient-text">Projects</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              className="text-muted-foreground mt-4 max-w-2xl mx-auto"
-            >
+            </h2>
+          </FadeInOnScroll>
+          <FadeInOnScroll delay={0.2}>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
               A collection of data analysis and visualization projects showcasing my expertise in Power BI, SQL, and data storytelling.
-            </motion.p>
-          </div>
+            </p>
+          </FadeInOnScroll>
+        </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
-            ))}
-          </div>
-        </motion.div>
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );
