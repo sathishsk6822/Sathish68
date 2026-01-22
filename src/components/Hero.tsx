@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Linkedin, FileText, ChevronRight } from "lucide-react";
+import { Linkedin, FileText, ChevronRight } from "lucide-react";
+import profilePhoto from "@/assets/profile-photo.png";
 import HeroParticles from "./HeroParticles";
 
 const Hero = () => {
@@ -85,6 +86,28 @@ const Hero = () => {
         className="container mx-auto px-6 relative z-10"
       >
         <div className="max-w-4xl mx-auto text-center">
+          {/* Profile Photo */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-8 flex justify-center"
+          >
+            <motion.div
+              className="relative"
+              animate={!shouldReduceMotion ? { y: [0, -8, 0] } : {}}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg shadow-primary/20">
+                <img 
+                  src={profilePhoto} 
+                  alt="Sathishkumar B - Data Analyst" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Glow ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-pulse-glow" />
+            </motion.div>
+          </motion.div>
+
           {/* Badge */}
           <motion.div
             variants={itemVariants}
@@ -143,7 +166,10 @@ const Hero = () => {
             </motion.div>
             <motion.div variants={buttonVariants}>
               <Button variant="heroOutline" size="lg" asChild className="group">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a 
+                  href="/resume.pdf" 
+                  download="Sathishkumar_B_Resume.pdf"
+                >
                   <FileText className="w-5 h-5" />
                   Download Resume
                 </a>
@@ -161,24 +187,6 @@ const Hero = () => {
                 </a>
               </Button>
             </motion.div>
-          </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2"
-          >
-            <motion.a
-              href="#about"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
-              animate={!shouldReduceMotion ? { y: [0, 8, 0] } : {}}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <span className="text-xs mb-2">Scroll Down</span>
-              <ArrowDown className="w-5 h-5" />
-            </motion.a>
           </motion.div>
         </div>
       </motion.div>
