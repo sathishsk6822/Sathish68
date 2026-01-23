@@ -85,18 +85,102 @@ const Hero = () => {
         animate="visible"
         className="container mx-auto px-6 relative z-10"
       >
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Profile Photo */}
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* Left Content */}
+          <div className="flex-1 text-center lg:text-left">
+            {/* Badge */}
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm mb-8"
+            >
+              <motion.span
+                className="w-2 h-2 bg-primary rounded-full"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <span className="text-sm text-muted-foreground">Available for opportunities</span>
+            </motion.div>
+
+            {/* Main Heading */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight"
+            >
+              Hi, I'm{" "}
+              <span className="gradient-text">Sathishkumar</span>
+              <br />
+              <motion.span
+                className="text-foreground inline-block"
+                animate={!shouldReduceMotion ? { y: [0, -5, 0] } : {}}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                Data Analyst
+              </motion.span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              variants={itemVariants}
+              className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed"
+            >
+              I turn raw data into actionable insights using{" "}
+              <span className="text-primary font-medium">Excel</span>,{" "}
+              <span className="text-primary font-medium">SQL</span>,{" "}
+              <span className="text-primary font-medium">Power BI</span> &{" "}
+              <span className="text-primary font-medium">Python</span>.
+              Crafting dashboards that drive data-driven decisions.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4"
+            >
+              <motion.div variants={buttonVariants}>
+                <Button variant="hero" size="lg" asChild className="group">
+                  <a href="#projects">
+                    View Projects
+                    <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </Button>
+              </motion.div>
+              <motion.div variants={buttonVariants}>
+                <Button variant="heroOutline" size="lg" asChild className="group">
+                  <a 
+                    href="/resume.pdf" 
+                    download="Sathishkumar_B_Resume.pdf"
+                  >
+                    <FileText className="w-5 h-5" />
+                    Download Resume
+                  </a>
+                </Button>
+              </motion.div>
+              <motion.div variants={buttonVariants}>
+                <Button variant="heroOutline" size="lg" asChild className="group">
+                  <a
+                    href="https://www.linkedin.com/in/sathish-kumar-507740321"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                    LinkedIn
+                  </a>
+                </Button>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right - Profile Photo */}
           <motion.div
             variants={itemVariants}
-            className="mb-8 flex justify-center"
+            className="flex-shrink-0"
           >
             <motion.div
               className="relative"
-              animate={!shouldReduceMotion ? { y: [0, -8, 0] } : {}}
+              animate={!shouldReduceMotion ? { y: [0, -10, 0] } : {}}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg shadow-primary/20">
+              <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20">
                 <img 
                   src={profilePhoto} 
                   alt="Sathishkumar B - Data Analyst" 
@@ -105,87 +189,8 @@ const Hero = () => {
               </div>
               {/* Glow ring */}
               <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-pulse-glow" />
-            </motion.div>
-          </motion.div>
-
-          {/* Badge */}
-          <motion.div
-            variants={itemVariants}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm mb-8"
-          >
-            <motion.span
-              className="w-2 h-2 bg-primary rounded-full"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            <span className="text-sm text-muted-foreground">Available for opportunities</span>
-          </motion.div>
-
-          {/* Main Heading */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight"
-          >
-            Hi, I'm{" "}
-            <span className="gradient-text">Sathishkumar</span>
-            <br />
-            <motion.span
-              className="text-foreground inline-block"
-              animate={!shouldReduceMotion ? { y: [0, -5, 0] } : {}}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-              Data Analyst
-            </motion.span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={itemVariants}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            I turn raw data into actionable insights using{" "}
-            <span className="text-primary font-medium">Excel</span>,{" "}
-            <span className="text-primary font-medium">SQL</span>,{" "}
-            <span className="text-primary font-medium">Power BI</span> &{" "}
-            <span className="text-primary font-medium">Python</span>.
-            Crafting dashboards that drive data-driven decisions.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <motion.div variants={buttonVariants}>
-              <Button variant="hero" size="lg" asChild className="group">
-                <a href="#projects">
-                  View Projects
-                  <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </a>
-              </Button>
-            </motion.div>
-            <motion.div variants={buttonVariants}>
-              <Button variant="heroOutline" size="lg" asChild className="group">
-                <a 
-                  href="/resume.pdf" 
-                  download="Sathishkumar_B_Resume.pdf"
-                >
-                  <FileText className="w-5 h-5" />
-                  Download Resume
-                </a>
-              </Button>
-            </motion.div>
-            <motion.div variants={buttonVariants}>
-              <Button variant="heroOutline" size="lg" asChild className="group">
-                <a
-                  href="https://www.linkedin.com/in/sathish-kumar-507740321"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Linkedin className="w-5 h-5" />
-                  LinkedIn
-                </a>
-              </Button>
+              {/* Outer glow */}
+              <div className="absolute -inset-4 rounded-full bg-primary/10 blur-2xl -z-10" />
             </motion.div>
           </motion.div>
         </div>
