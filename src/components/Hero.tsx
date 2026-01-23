@@ -3,9 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Linkedin, FileText, ChevronRight } from "lucide-react";
 import profilePhoto from "@/assets/profile-photo.png";
 import HeroParticles from "./HeroParticles";
+import { useTypingAnimation } from "@/hooks/useTypingAnimation";
+
+const ROLES = ['Data Analyst', 'Dashboard Designer', 'BI Developer'];
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { currentText } = useTypingAnimation({
+    words: ROLES,
+    typingSpeed: 100,
+    deletingSpeed: 50,
+    pauseTime: 2000,
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -109,13 +118,14 @@ const Hero = () => {
               Hi, I'm{" "}
               <span className="gradient-text">Sathishkumar</span>
               <br />
-              <motion.span
-                className="text-foreground inline-block"
-                animate={!shouldReduceMotion ? { y: [0, -5, 0] } : {}}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              >
-                Data Analyst
-              </motion.span>
+              <span className="text-foreground inline-block min-h-[1.2em]">
+                {currentText}
+                <motion.span
+                  className="inline-block w-[3px] h-[1em] bg-primary ml-1 align-middle"
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                />
+              </span>
             </motion.h1>
 
             {/* Subtitle */}
