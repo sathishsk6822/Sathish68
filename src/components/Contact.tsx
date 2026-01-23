@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import emailjs from '@emailjs/browser';
 import FadeInOnScroll from "./motion/FadeInOnScroll";
 import GlassCard from "./motion/GlassCard";
 
@@ -17,6 +18,11 @@ interface FormErrors {
   email?: string;
   message?: string;
 }
+
+// EmailJS configuration - these are public keys and safe to include in frontend
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
 
 const Contact = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -76,15 +82,35 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Check if EmailJS is configured
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        // Fallback to simulation if not configured
+        console.warn('EmailJS not configured. Using simulation mode.');
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        toast.success("Thank you! I will get back to you soon.");
+      } else {
+        // Send email via EmailJS
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            to_email: 'sathishbalask67@gmail.com',
+          },
+          EMAILJS_PUBLIC_KEY
+        );
+        toast.success("Thank you! Your message has been sent successfully.");
+      }
       
       setIsSubmitted(true);
-      toast.success("Thank you! I will get back to you soon.");
       setFormData({ name: "", email: "", message: "" });
       
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      console.error('EmailJS error:', error);
+      toast.error("Something went wrong. Please try again or email me directly.");
     } finally {
       setIsSubmitting(false);
     }
