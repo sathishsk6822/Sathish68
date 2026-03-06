@@ -52,7 +52,7 @@ const Hero = () => {
   };
 
   const getResumeDownloadUrl = () => {
-    if (typeof window === "undefined") return "/resume.pdf";
+    if (typeof window === "undefined") return "/Sathishkumar-Analyst.pdf";
 
     const resumeUrl = new URL("/resume.pdf", window.location.origin);
     const previewToken = new URLSearchParams(window.location.search).get("__lovable_token");
