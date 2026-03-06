@@ -5,21 +5,21 @@ import GlassCard from "./motion/GlassCard";
 
 const education = [
   {
-    degree: "Master of Computer Applications (MCA)",
+    degree: "Master of Computer Application",
     institution: "Sacred Heart College (Thiruvalluvar University)",
-    period: "2023 – 2025",
+    period: "2023 - 2025",
     grade: "GPA: 7.7/10",
   },
   {
-    degree: "PG Diploma in Data Science",
-    institution: "Sacred Heart College",
-    period: "2024 – 2025",
+    degree: "PG-Diploma in Data Science",
+    institution: "Sacred Heart College (Thiruvalluvar University)",
+    period: "2024 - 2025",
     grade: "",
   },
   {
-    degree: "B.Sc Computer Science",
-    institution: "Sri Vidya Mandir Arts & Science College",
-    period: "2020 – 2023",
+    degree: "Bachelor of Computer Science",
+    institution: "Sri Vidya Mandir Arts and Science College (Periyar University)",
+    period: "2020 - 2023",
     grade: "GPA: 8.9/10",
   },
 ];
@@ -27,11 +27,11 @@ const education = [
 const certifications = [
   {
     title: "Technologies for Data Science",
-    issuer: "Sacred Heart College",
+    issuer: "Sacred Heart College, Tirupattur, Tamil Nadu, India",
   },
   {
     title: "Mobile Application Development",
-    issuer: "Sacred Heart College",
+    issuer: "Sacred Heart College, Tirupattur, Tamil Nadu, India",
   },
 ];
 

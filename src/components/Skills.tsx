@@ -1,8 +1,8 @@
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import { 
-  BarChart3, 
-  Code2, 
+import {
+  BarChart3,
+  Code2,
   TrendingUp,
   Palette,
 } from "lucide-react";
@@ -11,43 +11,40 @@ import GlassCard from "./motion/GlassCard";
 
 const skillCategories = [
   {
-    title: "Data & BI Tools",
+    title: "Data Analytics & Tools",
     icon: BarChart3,
     skills: [
       { name: "Power BI", level: 90 },
       { name: "Tableau", level: 75 },
       { name: "Excel", level: 95 },
-      { name: "SQL / MySQL", level: 85 },
+      { name: "R", level: 70 },
     ],
   },
   {
-    title: "Programming",
+    title: "Databases",
+    icon: TrendingUp,
+    skills: [
+      { name: "MySQL", level: 85 },
+      { name: "MongoDB", level: 70 },
+      { name: "SQL", level: 90 },
+    ],
+  },
+  {
+    title: "Frontend Technologies",
+    icon: Palette,
+    skills: [
+      { name: "HTML/CSS", level: 85 },
+      { name: "JavaScript", level: 80 },
+      { name: "React", level: 75 },
+    ],
+  },
+  {
+    title: "Backend Technologies",
     icon: Code2,
     skills: [
       { name: "Python", level: 80 },
-      { name: "R", level: 70 },
       { name: "Java", level: 65 },
-      { name: "HTML/CSS/JS", level: 75 },
-    ],
-  },
-  {
-    title: "Analytics Skills",
-    icon: TrendingUp,
-    skills: [
-      { name: "Data Cleaning", level: 90 },
-      { name: "Exploratory Analysis", level: 85 },
-      { name: "Dashboard Design", level: 88 },
-      { name: "Business Insights", level: 82 },
-    ],
-  },
-  {
-    title: "Other Skills",
-    icon: Palette,
-    skills: [
-      { name: "Alight Motion", level: 70 },
-      { name: "Unity Engine", level: 60 },
       { name: "PHP", level: 65 },
-      { name: "Storytelling", level: 80 },
     ],
   },
 ];
@@ -67,10 +64,10 @@ const SkillBar = ({ name, level, delay }: { name: string; level: number; delay: 
         <motion.div
           initial={{ width: 0 }}
           animate={isInView ? { width: `${level}%` } : {}}
-          transition={{ 
-            duration: shouldReduceMotion ? 0 : 1, 
-            delay: shouldReduceMotion ? 0 : delay, 
-            ease: [0.25, 0.4, 0.25, 1] 
+          transition={{
+            duration: shouldReduceMotion ? 0 : 1,
+            delay: shouldReduceMotion ? 0 : delay,
+            ease: [0.25, 0.4, 0.25, 1]
           }}
           className="h-full bg-gradient-to-r from-primary to-accent rounded-full relative"
         >

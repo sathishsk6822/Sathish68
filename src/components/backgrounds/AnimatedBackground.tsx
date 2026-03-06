@@ -1,10 +1,12 @@
 import { useTheme } from '@/contexts/ThemeContext';
-import BlobsBackground from './BlobsBackground';
-import StarsBackground from './StarsBackground';
-import ZigzagBackground from './ZigzagBackground';
-import MatrixBackground from './MatrixBackground';
-import ParticlesBackground from './ParticlesBackground';
 import { AnimatePresence, motion } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+
+const BlobsBackground = lazy(() => import('./BlobsBackground'));
+const StarsBackground = lazy(() => import('./StarsBackground'));
+const ZigzagBackground = lazy(() => import('./ZigzagBackground'));
+const MatrixBackground = lazy(() => import('./MatrixBackground'));
+const ParticlesBackground = lazy(() => import('./ParticlesBackground'));
 
 const AnimatedBackground = () => {
   const { backgroundTheme } = useTheme();
@@ -28,7 +30,9 @@ const AnimatedBackground = () => {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <BackgroundComponent />
+        <Suspense fallback={<div className="fixed inset-0 bg-background -z-10" />}>
+          <BackgroundComponent />
+        </Suspense>
       </motion.div>
     </AnimatePresence>
   );

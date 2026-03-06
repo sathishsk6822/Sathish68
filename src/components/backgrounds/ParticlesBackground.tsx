@@ -1,120 +1,72 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 
 const ParticlesBackground = () => {
   const shouldReduceMotion = useReducedMotion();
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   const particles = useMemo(() => {
-    return Array.from({ length: 60 }, (_, i) => ({
+    return Array.from({ length: 40 }, (_, i) => ({
       id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
-      duration: Math.random() * 20 + 15,
-      delay: Math.random() * 5,
-      opacity: Math.random() * 0.4 + 0.1,
-      color: Math.random() > 0.5 ? 'primary' : 'accent',
+      x: Math.random() * 100, // %
+      y: Math.random() * 100, // %
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 20 + 20,
+      color: Math.random() > 0.5 ? 'hsl(var(--primary))' : 'hsl(var(--accent))',
     }));
   }, []);
 
-  const connections = useMemo(() => {
-    const conns: { id: string; x1: number; y1: number; x2: number; y2: number }[] = [];
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 15) {
-          conns.push({
-            id: `${i}-${j}`,
-            x1: particles[i].x,
-            y1: particles[i].y,
-            x2: particles[j].x,
-            y2: particles[j].y,
-          });
-        }
-      }
-    }
-    return conns;
-  }, [particles]);
-
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-      {/* Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/5 to-background" />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-background">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
 
-      {/* Connections */}
-      <svg className="absolute inset-0 w-full h-full">
-        {connections.map((conn) => (
-          <motion.line
-            key={conn.id}
-            x1={`${conn.x1}%`}
-            y1={`${conn.y1}%`}
-            x2={`${conn.x2}%`}
-            y2={`${conn.y2}%`}
-            stroke="hsl(var(--primary))"
-            strokeWidth="0.5"
-            strokeOpacity="0.1"
-            animate={
-              !shouldReduceMotion
-                ? {
-                    strokeOpacity: [0.05, 0.15, 0.05],
-                  }
-                : {}
-            }
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </svg>
-
-      {/* Particles */}
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className={`absolute rounded-full ${
-            particle.color === 'primary' ? 'bg-primary' : 'bg-accent'
-          }`}
+          className="absolute rounded-full"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: particle.size,
             height: particle.size,
-            opacity: particle.opacity,
+            backgroundColor: particle.color,
+            boxShadow: `0 0 10px ${particle.color}`,
+            opacity: 0.6
           }}
-          animate={
-            !shouldReduceMotion
-              ? {
-                  x: [0, (Math.random() - 0.5) * 100, 0],
-                  y: [0, (Math.random() - 0.5) * 100, 0],
-                  scale: [1, 1.2, 1],
-                  opacity: [particle.opacity, particle.opacity * 1.5, particle.opacity],
-                }
-              : {}
-          }
+          animate={!shouldReduceMotion ? {
+            x: [0, Math.random() * 100 - 50, 0],
+            y: [0, Math.random() * 100 - 50, 0],
+            opacity: [0.3, 0.8, 0.3],
+          } : {}}
           transition={{
             duration: particle.duration,
             repeat: Infinity,
-            delay: particle.delay,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
         />
       ))}
 
-      {/* Glow orbs */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-[100px]"
-        animate={!shouldReduceMotion ? { scale: [1, 1.3, 1] } : {}}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute bottom-1/3 left-1/3 w-60 h-60 bg-accent/5 rounded-full blur-[80px]"
-        animate={!shouldReduceMotion ? { scale: [1, 1.2, 1] } : {}}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-      />
+      {/* A softly glowing orb tracking mouse position gently */}
+      {!shouldReduceMotion && (
+        <motion.div
+          className="absolute w-[400px] h-[400px] rounded-full blur-[150px] opacity-20"
+          style={{ background: 'hsl(var(--primary))', left: 0, top: 0 }}
+          animate={{
+            x: mousePos.x - 200,
+            y: mousePos.y - 200,
+          }}
+          transition={{ type: "spring", stiffness: 20, damping: 15, mass: 1 }}
+        />
+      )}
+
     </div>
   );
 };

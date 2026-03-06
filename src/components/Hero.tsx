@@ -70,7 +70,7 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Hero-specific particles */}
       <HeroParticles />
-      
+
       {/* Gradient orbs with enhanced animation */}
       <motion.div
         className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px]"
@@ -171,7 +171,7 @@ const Hero = () => {
               </motion.div>
               <motion.div variants={buttonVariants}>
                 <Button variant="heroOutline" size="lg" asChild className="group">
-                  <a 
+                  <a
                     href={resumeDownloadUrl}
                     download="Sathishkumar_B_Resume.pdf"
                   >
@@ -205,17 +205,17 @@ const Hero = () => {
               animate={!shouldReduceMotion ? { y: [0, -10, 0] } : {}}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20">
-                <img 
-                  src={profilePhoto} 
-                  alt="Sathishkumar B - Data Analyst" 
-                  className="w-full h-full object-cover"
+              <div className="w-56 h-64 md:w-72 md:h-80 lg:w-80 lg:h-96 rounded-3xl overflow-hidden border-4 border-primary/30 shadow-2xl shadow-primary/20 bg-muted/20">
+                <img
+                  src={profilePhoto}
+                  alt="Sathishkumar B - Data Analyst"
+                  className="w-full h-full object-contain"
                 />
               </div>
               {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-pulse-glow" />
+              <div className="absolute inset-0 rounded-3xl border-2 border-primary/20 animate-pulse-glow" />
               {/* Outer glow */}
-              <div className="absolute -inset-4 rounded-full bg-primary/10 blur-2xl -z-10" />
+              <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl -z-10" />
             </motion.div>
           </motion.div>
         </div>

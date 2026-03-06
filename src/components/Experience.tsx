@@ -5,14 +5,25 @@ import GlassCard from "./motion/GlassCard";
 
 const experiences = [
   {
+    title: "Data Analyst",
+    company: "Queenbug Technologies",
+    location: "Tirupattur",
+    period: "Nov 2024 - Present",
+    description: [
+      "Collected, cleaned, and analyzed structured business data using Excel, SQL, and Power BI.",
+      "Created analytical reports and dashboards to monitor performance, trends, and operational insights.",
+      "Collaborated with development and business teams to translate requirements into data-driven solutions."
+    ],
+  },
+  {
     title: "Power BI Intern",
     company: "Queenbug Technologies",
-    location: "India",
-    period: "2024 – 2025",
+    location: "Tirupattur",
+    period: "Oct 2024 - Mar 2025",
     description: [
-      "Developed interactive dashboards for a jewellery shop admin system",
-      "Built modules for Pledge, Release, Accountant and Customers",
-      "Created real-time analytics to support decision-making",
+      "Developed interactive dashboards for a jewelers shop admin system, including Pledge, Release, Accountant, and Customer modules.",
+      "Analyzed data trends to support decision-making processes for project initiatives.",
+      "Assisted in developing dashboards using BI tools to visualize key performance metrics."
     ],
   },
 ];
@@ -53,7 +64,7 @@ const Experience = () => {
                   viewport={{ once: true }}
                   transition={{ duration: shouldReduceMotion ? 0 : 1, delay: 0.3 }}
                 />
-                
+
                 {/* Timeline Dot */}
                 <motion.div
                   className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-primary"
@@ -88,7 +99,7 @@ const Experience = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <ul className="space-y-2">
                     {exp.description.map((item, i) => (
                       <motion.li

@@ -37,10 +37,10 @@ const About = () => {
             <FadeInOnScroll direction="left" delay={0.2}>
               <div className="space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
-                  Enthusiastic and detail-driven <span className="text-foreground font-medium">Data Analyst</span> with a strong foundation in data analysis, visualization, and reporting. Skilled in Excel, SQL, and Power BI for data cleaning and interpretation.
+                  Enthusiastic and detail-driven <span className="text-foreground font-medium">Data Analyst</span> with a strong foundation in data analysis, visualization, and reporting. Skilled in using Excel, SQL, and Power BI for data cleaning and interpretation.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Developed dashboards for jewellery shop administration, sports meet management, and app analytics. I turn raw data into insights and support data-driven decision-making.
+                  Possesses solid problem-solving and critical thinking skills developed through academic projects and internships. Eager to apply analytical knowledge to real-world business challenges and support data-driven decision-making.
                 </p>
                 <div className="pt-4">
                   <motion.div
