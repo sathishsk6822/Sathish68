@@ -51,6 +51,21 @@ const Hero = () => {
     },
   };
 
+  const getResumeDownloadUrl = () => {
+    if (typeof window === "undefined") return "/resume.pdf";
+
+    const resumeUrl = new URL("/resume.pdf", window.location.origin);
+    const previewToken = new URLSearchParams(window.location.search).get("__lovable_token");
+
+    if (previewToken) {
+      resumeUrl.searchParams.set("__lovable_token", previewToken);
+    }
+
+    return resumeUrl.toString();
+  };
+
+  const resumeDownloadUrl = getResumeDownloadUrl();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Hero-specific particles */}
@@ -157,7 +172,7 @@ const Hero = () => {
               <motion.div variants={buttonVariants}>
                 <Button variant="heroOutline" size="lg" asChild className="group">
                   <a 
-                    href="/resume.pdf" 
+                    href={resumeDownloadUrl}
                     download="Sathishkumar_B_Resume.pdf"
                   >
                     <FileText className="w-5 h-5" />
