@@ -11,7 +11,7 @@ const StarsBackground = () => {
       y: Math.random() * 100,
       size: Math.random() * (sizeMax - sizeMin) + sizeMin,
       opacity: Math.random() * 0.8 + 0.2,
-      color: Math.random() > 0.8 ? 'hsl(var(--primary))' : '#ffffff'
+      color: Math.random() > 0.8 ? 'hsl(var(--primary))' : 'hsl(var(--foreground))'
     }));
   };
 
@@ -19,7 +19,7 @@ const StarsBackground = () => {
   const mediumStars = useMemo(() => generateStars(80, 1.5, 2.5), []);
   const fastStars = useMemo(() => generateStars(40, 2.5, 4), []);
 
-  const StarLayer = ({ stars, duration }: { stars: any[], duration: number }) => (
+  const StarLayer = ({ stars, duration }: { stars: { id: number, x: number, y: number, size: number, opacity: number, color: string }[], duration: number }) => (
     <div className="absolute inset-0 w-full h-full">
       <motion.div
         className="absolute inset-0 w-full h-[200%]"

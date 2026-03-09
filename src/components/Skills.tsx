@@ -11,40 +11,43 @@ import GlassCard from "./motion/GlassCard";
 
 const skillCategories = [
   {
-    title: "Data Analytics & Tools",
+    title: "Analytics & Visualization",
     icon: BarChart3,
     skills: [
-      { name: "Power BI", level: 90 },
-      { name: "Tableau", level: 75 },
-      { name: "Excel", level: 95 },
-      { name: "R", level: 70 },
+      { name: "Power BI (DAX, Modelling)", level: 95 },
+      { name: "Excel (VBA, Power Query)", level: 98 },
+      { name: "Tableau", level: 80 },
+      { name: "Data Storytelling", level: 90 },
     ],
   },
   {
-    title: "Databases",
+    title: "Data Engineering & DBs",
     icon: TrendingUp,
     skills: [
-      { name: "MySQL", level: 85 },
-      { name: "MongoDB", level: 70 },
-      { name: "SQL", level: 90 },
+      { name: "SQL (MySQL, PostgreSQL)", level: 92 },
+      { name: "Data Cleaning (ETL)", level: 95 },
+      { name: "Python (Pandas, NumPy)", level: 85 },
+      { name: "MongoDB", level: 75 },
     ],
   },
   {
-    title: "Frontend Technologies",
-    icon: Palette,
-    skills: [
-      { name: "HTML/CSS", level: 85 },
-      { name: "JavaScript", level: 80 },
-      { name: "React", level: 75 },
-    ],
-  },
-  {
-    title: "Backend Technologies",
+    title: "Technical Foundation",
     icon: Code2,
     skills: [
-      { name: "Python", level: 80 },
-      { name: "Java", level: 65 },
-      { name: "PHP", level: 65 },
+      { name: "Python for Automation", level: 88 },
+      { name: "JavaScript/React", level: 75 },
+      { name: "HTML/CSS", level: 80 },
+      { name: "API Integration", level: 70 },
+    ],
+  },
+  {
+    title: "Domain & Core Skills",
+    icon: Palette,
+    skills: [
+      { name: "Statistical Analysis", level: 85 },
+      { name: "Financial Reporting", level: 90 },
+      { name: "Problem Solving", level: 95 },
+      { name: "A/B Testing", level: 75 },
     ],
   },
 ];

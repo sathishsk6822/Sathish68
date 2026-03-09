@@ -5,7 +5,7 @@ import profilePhoto from "@/assets/profile-photo.png";
 import HeroParticles from "./HeroParticles";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 
-const ROLES = ['Data Analyst', 'Dashboard Designer', 'BI Developer'];
+const ROLES = ['Data Analyst', 'BI Specialist', 'Data Scientist', 'Data Engineer', 'Prompt Engineer'];
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -67,7 +67,7 @@ const Hero = () => {
   const resumeDownloadUrl = getResumeDownloadUrl();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Hero-specific particles */}
       <HeroParticles />
 
@@ -122,7 +122,7 @@ const Hero = () => {
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span className="text-sm text-muted-foreground">Available for opportunities</span>
+              <span className="text-sm text-muted-foreground">Transforming Raw Data into Business Value</span>
             </motion.div>
 
             {/* Main Heading */}
@@ -148,12 +148,7 @@ const Hero = () => {
               variants={itemVariants}
               className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed"
             >
-              I turn raw data into actionable insights using{" "}
-              <span className="text-primary font-medium">Excel</span>,{" "}
-              <span className="text-primary font-medium">SQL</span>,{" "}
-              <span className="text-primary font-medium">Power BI</span> &{" "}
-              <span className="text-primary font-medium">Python</span>.
-              Crafting dashboards that drive data-driven decisions.
+              Specializing in <span className="text-primary font-medium">Business Intelligence</span> and <span className="text-primary font-medium">Predictive Analytics</span>. I bridge the gap between complex datasets and strategic growth using Power BI, SQL, and advanced Python modeling.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -163,7 +158,7 @@ const Hero = () => {
             >
               <motion.div variants={buttonVariants}>
                 <Button variant="hero" size="lg" asChild className="group">
-                  <a href="#projects">
+                  <a href="#/projects">
                     View Projects
                     <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </a>
@@ -183,7 +178,7 @@ const Hero = () => {
               <motion.div variants={buttonVariants}>
                 <Button variant="heroOutline" size="lg" asChild className="group">
                   <a
-                    href="https://www.linkedin.com/in/sathish-kumar-507740321"
+                    href="https://linkedin.com/in/sathishkumar-b-507740321"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

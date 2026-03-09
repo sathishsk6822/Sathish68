@@ -8,6 +8,10 @@ import AnimatedBackground from "@/components/backgrounds/AnimatedBackground";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ProjectsPage from "./pages/ProjectsPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -18,11 +22,17 @@ const App = () => (
         <Sonner />
         <AnimatedBackground />
         <HashRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <div className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+            <Footer />
+          </div>
         </HashRouter>
       </TooltipProvider>
     </ThemeProvider>

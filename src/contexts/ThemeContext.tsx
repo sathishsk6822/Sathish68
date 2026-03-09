@@ -1,39 +1,53 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
-export type BackgroundTheme = 'blobs' | 'stars' | 'zigzag' | 'matrix' | 'particles';
+export type BackgroundTheme = 'stars' | 'matrix';
+export type UIMode = 'dark' | 'light';
 
 interface ThemeContextType {
   backgroundTheme: BackgroundTheme;
   setBackgroundTheme: (theme: BackgroundTheme) => void;
-  cycleTheme: () => void;
+  uiMode: UIMode;
+  toggleUIMode: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-const THEMES: BackgroundTheme[] = ['blobs', 'stars', 'zigzag', 'matrix', 'particles'];
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [backgroundTheme, setBackgroundTheme] = useState<BackgroundTheme>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('backgroundTheme');
-      return (saved as BackgroundTheme) || 'blobs';
+      return (saved as BackgroundTheme) === 'matrix' ? 'matrix' : 'stars';
     }
-    return 'blobs';
+    return 'stars';
+  });
+
+  const [uiMode, setUIMode] = useState<UIMode>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('uiMode');
+      return (saved as UIMode) || 'dark';
+    }
+    return 'dark';
   });
 
   useEffect(() => {
     localStorage.setItem('backgroundTheme', backgroundTheme);
   }, [backgroundTheme]);
 
-  const cycleTheme = useCallback(() => {
-    setBackgroundTheme((current) => {
-      const currentIndex = THEMES.indexOf(current);
-      return THEMES[(currentIndex + 1) % THEMES.length];
-    });
+  useEffect(() => {
+    localStorage.setItem('uiMode', uiMode);
+    if (uiMode === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+  }, [uiMode]);
+
+  const toggleUIMode = useCallback(() => {
+    setUIMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ backgroundTheme, setBackgroundTheme, cycleTheme }}>
+    <ThemeContext.Provider value={{ backgroundTheme, setBackgroundTheme, uiMode, toggleUIMode }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -48,9 +62,6 @@ export const useTheme = () => {
 };
 
 export const THEME_NAMES: Record<BackgroundTheme, string> = {
-  blobs: 'Gradient Blobs',
   stars: 'Moving Stars',
-  zigzag: 'Zig-Zag Lines',
   matrix: 'Matrix Rain',
-  particles: 'Floating Particles',
 };

@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin, Mail, Phone, Linkedin } from "lucide-react";
+import { MapPin, Mail, Phone, Linkedin, Heart } from "lucide-react";
 import FadeInOnScroll from "./motion/FadeInOnScroll";
 import GlassCard from "./motion/GlassCard";
 
@@ -37,10 +37,10 @@ const About = () => {
             <FadeInOnScroll direction="left" delay={0.2}>
               <div className="space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
-                  Enthusiastic and detail-driven <span className="text-foreground font-medium">Data Analyst</span> with a strong foundation in data analysis, visualization, and reporting. Skilled in using Excel, SQL, and Power BI for data cleaning and interpretation.
+                  Dedicated <span className="text-foreground font-medium">Data Analyst</span> passionate about bridging the gap between raw data and strategic business value. I specialize in the full data lifecycle—from structured extraction and rigorous cleaning to advanced statistical analysis and high-impact visualization.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Possesses solid problem-solving and critical thinking skills developed through academic projects and internships. Eager to apply analytical knowledge to real-world business challenges and support data-driven decision-making.
+                  By leveraging tools like Power BI, SQL, and Python, I translate complex datasets into clear, actionable stories that empower stakeholders to make data-driven decisions with confidence. Eager to solve real-world business challenges through analytical excellence.
                 </p>
                 <div className="pt-4">
                   <motion.div
@@ -57,7 +57,7 @@ const About = () => {
 
             {/* Contact Info Card */}
             <FadeInOnScroll direction="right" delay={0.3}>
-              <GlassCard className="space-y-4">
+              <GlassCard className="space-y-4 relative">
                 <h3 className="font-heading font-semibold text-lg mb-6">Contact Information</h3>
                 {contactInfo.map((item, index) => (
                   <motion.div
@@ -88,6 +88,20 @@ const About = () => {
                     )}
                   </motion.div>
                 ))}
+
+                {/* Personal Credit relocated from Footer
+                <div className="pt-6 mt-6 border-t border-border/50">
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    Made with{" "}
+                    <motion.span
+                      animate={!shouldReduceMotion ? { scale: [1, 1.2, 1] } : {}}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      <Heart className="w-4 h-4 text-destructive" />
+                    </motion.span>{" "}
+                    in Tamil Nadu
+                  </p>
+                </div> */}
               </GlassCard>
             </FadeInOnScroll>
           </div>
