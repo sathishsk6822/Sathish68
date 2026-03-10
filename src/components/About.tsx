@@ -37,11 +37,25 @@ const About = () => {
             <FadeInOnScroll direction="left" delay={0.2}>
               <div className="space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
-                  Dedicated <span className="text-foreground font-medium">Data Analyst</span> passionate about bridging the gap between raw data and strategic business value. I specialize in the full data lifecycle—from structured extraction and rigorous cleaning to advanced statistical analysis and high-impact visualization.
+                  <span className="text-foreground font-medium">Data Analyst</span> passionate about turning raw data into actionable insights.
                 </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  By leveraging tools like Power BI, SQL, and Python, I translate complex datasets into clear, actionable stories that empower stakeholders to make data-driven decisions with confidence. Eager to solve real-world business challenges through analytical excellence.
-                </p>
+                <div className="space-y-2">
+                  <p className="text-foreground font-medium">Specialized in:</p>
+                  <ul className="text-muted-foreground space-y-1 list-none">
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      Power BI dashboards
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      SQL data analysis
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      Data storytelling
+                    </li>
+                  </ul>
+                </div>
                 <div className="pt-4">
                   <motion.div
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/20"

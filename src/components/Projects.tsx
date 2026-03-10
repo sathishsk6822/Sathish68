@@ -5,6 +5,8 @@ import jewelleryDashboard from "@/assets/jewellery-dashboard.png";
 import playstoreDashboard from "@/assets/playstore-dashboard.png";
 import olaDashboard from "@/assets/ola-dashboard.png";
 import movieDashboard from "@/assets/movie-dashboard.png";
+import billingSoftware from "@/assets/billing-software.png";
+import jewelleryManagement from "@/assets/jewellery-management.png";
 import FadeInOnScroll from "./motion/FadeInOnScroll";
 
 const projects = [
@@ -64,48 +66,34 @@ const projects = [
       liveUrl: "#"
     }
   },
-  // {
-  //   title: "LLM Performance Benchmark",
-  //   description: "Comparative analysis system for LLM latency and accuracy.",
-  //   image: playstoreDashboard, // Using placeholder
-  //   tech: ["Python", "OpenAI API", "Pandas"],
-  //   category: "prompt",
-  //   caseStudy: {
-  //     problem: "Enterprises struggle to choose between models like GPT-4o, Claude 3.5, and Llama 3 for specific tasks, often overpaying for simple reasoning or sacrificing quality for speed without a systematic evaluation framework.",
-  //     process: "Built a Python-based benchmarking engine that executes complex prompt sets across multiple LLM endpoints. Implemented automated scoring using LLM-as-a-judge (GPT-4o evaluating Llama) and calculated BLEU/ROUGE metrics for factual consistency.",
-  //     solution: "A dynamic dashboard that ranks LLMs based on 'Accuracy-per-Dollar.' It maps latency, token cost, and reasoning quality, allowing developers to choose the right model for every micro-service based on real-world performance data.",
-  //     impact: "Reduced operational costs by 30% for a pilot project by identifying that 70% of classification tasks could be handled by smaller models without any loss in accuracy.",
-  //     liveUrl: "#"
-  //   }
-  // },
-  // {
-  //   title: "Automated Data Cleaning Chain",
-  //   description: "Prompt-based extraction of structured data from messy documents.",
-  //   image: movieDashboard, // Using placeholder
-  //   tech: ["Prompt Engineering", "JSON Mode", "Few-Shot"],
-  //   category: "prompt",
-  //   caseStudy: {
-  //     problem: "A logistics company processed 500+ non-standardized invoice PDFs daily. Traditional OCR failed to accurately categorize vendor names and complex SKU descriptions, requiring 4 hours of manual correction every morning.",
-  //     process: "Engineered a multi-stage 'Chain-of-Thought' prompt strategy. The first stage extracted raw text, the second stage sanitized the noise using few-shot examples, and the final stage enforced a strict JSON schema for 100% downstream compatibility.",
-  //     solution: "An automated extraction pipeline that uses 'Semantic Validation' prompts to verify SKU codes and currency formats before finalizing the data. It utilizes JSON mode to ensure the output is always developer-ready.",
-  //     impact: "Achieved an extraction accuracy of 99.5%, effectively replacing the manual review process. This saved the company 1,200+ man-hours annually and accelerated the billing cycle significantly.",
-  //     liveUrl: "#"
-  //   }
-  // },
-  // {
-  //   title: "Semantic Context Optimization",
-  //   description: "Advanced RAG strategies for improved information retrieval.",
-  //   image: jewelleryDashboard, // Using placeholder
-  //   tech: ["Pinecone", "LangChain", "Reranking"],
-  //   category: "prompt",
-  //   caseStudy: {
-  //     problem: "Users of an internal technical Wiki complained that the AI assistant often 'hallucinated' or missed key details because the RAG (Retrieval-Augmented Generation) system was fetching irrelevant document chunks.",
-  //     process: "Optimized the embedding strategy and implemented 'Context-Aware' prompts that re-rank retrieved chunks based on semantic relevance before feeding them to the LLM. I used LangChain to build a sophisticated reranking filter.",
-  //     solution: "A 'Smart Context' wrapper that pre-processes user queries to better match vector embeddings and post-processes retrieved data to ensure the most critical information is placed at the top of the prompt (solving the 'lost-in-the-middle' problem).",
-  //     impact: "Reduced hallucination rates by 45% and improved the 'Groundness' score of answers by 60%, resulting in a significantly more reliable assistant for technical staff.",
-  //     liveUrl: "#"
-  //   }
-  // }
+  {
+    title: "Enterprise Billing & Financial Automation",
+    description: "Secure multi-tenant invoice generation and automated financial auditing.",
+    image: billingSoftware,
+    tech: ["LangChain", "OpenAI", "Few-Shot"],
+    category: "prompt",
+    caseStudy: {
+      problem: "A high-volume enterprise client faced critical bottlenecks in their financial cycle, with fragmented brand consistency and a 40% error rate in manual invoice reconciliation. The lack of a secure, centralized audit trail was a major compliance risk.",
+      process: "Engineered a production-ready reasoning pipeline using LangChain. I developed a few-shot RAG (Retrieval-Augmented Generation) strategy that dynamically injects validated 'Enterprise Voice' templates to ensure 100% compliance across all financial instruments.",
+      solution: "A scalable automation suite integrated directly into the core ERP. It includes automated ledger reconciliation, AI-assisted drafting with a multi-step 'Human-in-the-loop' validation, and encrypted audit logging for all automated actions.",
+      impact: "Captured a 65% reduction in billing cycle time and achieved a 0% error rate in brand-voice consistency. The system successfully passed an external financial audit with zero findings on automation integrity.",
+      liveUrl: "#"
+    }
+  },
+  {
+    title: "Jewellery Management System",
+    description: "Multi-layered automation for inventory tracking and financial analysis.",
+    image: jewelleryManagement,
+    tech: ["LangChain", "Vector DB", "React"],
+    category: "prompt",
+    caseStudy: {
+      problem: "A luxury jewellery house faced extreme difficulty in tracking inventory purity and pledged assets across multiple branches. Their existing system lacked real-time valuation and was prone to data entry inconsistencies, leading to significant financial reporting delays.",
+      process: "Developed a sophisticated prompt engineering architecture using multi-stage chains. I implemented a system that extracts structured manufacturing data from unstructured invoices and automatically validates purity/weight against market standards using LLM-based logic.",
+      solution: "A high-end management suite with a Rose Gold dark-themed dashboard. It features automated inventory audits, a real-time interest calculator for pledge monitoring, and a 'Brand Voice' communication engine for high-net-worth client notifications.",
+      impact: "Reduced inventory audit time by 80% and eliminated human calculation errors in pledge interest. The system now manages a $5M+ inventory with perfect transparency and real-time P&L visibility.",
+      liveUrl: "https://github.com/sathishsk6822/Jewellery_Management"
+    }
+  }
 ];
 
 const ProjectCard = ({
@@ -136,7 +124,7 @@ const ProjectCard = ({
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent z-10" />
         </div>
@@ -198,77 +186,96 @@ const ProjectModal = ({ project, onClose }: { project: (typeof projects)[0], onC
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
-        className="w-full max-w-4xl max-h-[90vh] bg-card border border-border shadow-2xl rounded-3xl overflow-hidden flex flex-col"
+        className="w-full max-w-4xl max-h-[90vh] bg-card border border-border shadow-2xl rounded-3xl overflow-hidden relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative h-48 md:h-64 flex-shrink-0 overflow-hidden">
-          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-background/50 backdrop-blur-md border border-border/50 text-foreground hover:bg-primary hover:text-primary-foreground transition-all z-10"
-          >
-            <X size={20} />
-          </button>
-        </div>
+        {/* Fixed Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-full bg-background/50 backdrop-blur-md border border-border/50 text-foreground hover:bg-primary hover:text-primary-foreground transition-all z-[110]"
+        >
+          <X size={20} />
+        </button>
 
-        <div className="flex-1 overflow-y-auto p-6 md:p-10 -mt-12 relative z-10">
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tech.map(t => (
-              <span key={t} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20">
-                {t}
-              </span>
-            ))}
+        <div className="flex-1 overflow-y-auto">
+          {/* Scrolling Image Header */}
+          <div className="relative h-64 md:h-[450px] overflow-hidden bg-muted/20">
+            {/* Blurred Background Layer to fill sides */}
+            <div className="absolute inset-0 z-0 scale-110 blur-2xl opacity-40">
+              <img src={project.image} alt="" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Primary Sharp Image (Full View) */}
+            <img
+              src={project.image}
+              alt={project.title}
+              className="relative z-10 w-full h-full object-contain filter drop-shadow-2xl"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent z-20" />
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8">{project.title}</h2>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-10 text-balance">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[11px]">
-                <Target size={18} />
-                <span>The Problem</span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed italic border-l-2 border-primary/20 pl-4">{project.caseStudy.problem}</p>
+          {/* Scrolling Content Container */}
+          <div className="p-6 md:p-10 -mt-12 relative z-30">
+            <div className="flex flex-wrap gap-2 mb-6">
+              {project.tech.map(t => (
+                <span key={t} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20">
+                  {t}
+                </span>
+              ))}
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-widest text-[11px]">
-                <Sparkles size={18} />
-                <span>The Process</span>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8">{project.title}</h2>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-10 text-balance">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[11px]">
+                  <Target size={18} />
+                  <span>The Problem</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed italic border-l-2 border-primary/20 pl-4">{project.caseStudy.problem}</p>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">{project.caseStudy.process}</p>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-accent font-bold uppercase tracking-widest text-[11px]">
+                  <Sparkles size={18} />
+                  <span>The Process</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{project.caseStudy.process}</p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[11px]">
+                  <Lightbulb size={18} />
+                  <span>The Solution</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{project.caseStudy.solution}</p>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[11px]">
+                  <TrendingUp size={18} />
+                  <span>The Impact</span>
+                </div>
+                <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
+                  <p className="text-sm font-semibold text-foreground leading-relaxed">{project.caseStudy.impact}</p>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[11px]">
-                <Lightbulb size={18} />
-                <span>The Solution</span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">{project.caseStudy.solution}</p>
+            <div className="flex flex-wrap gap-4 pt-6 border-t border-border/50">
+              {project.caseStudy.liveUrl !== "#" && (
+                <Button variant="hero" asChild>
+                  <a href={project.caseStudy.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink size={18} className="mr-2" />
+                    Live Version
+                  </a>
+                </Button>
+              )}
+              <Button variant="heroOutline" onClick={onClose}>
+                Close Preview
+              </Button>
             </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[11px]">
-                <TrendingUp size={18} />
-                <span>The Impact</span>
-              </div>
-              <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
-                <p className="text-sm font-semibold text-foreground leading-relaxed">{project.caseStudy.impact}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-4 pt-6 border-t border-border/50">
-            <Button variant="hero" asChild>
-              <a href={project.caseStudy.liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={18} className="mr-2" />
-                Live Version
-              </a>
-            </Button>
-            <Button variant="heroOutline" onClick={onClose}>
-              Close Preview
-            </Button>
           </div>
         </div>
       </motion.div>

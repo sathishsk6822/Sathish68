@@ -5,7 +5,7 @@ import profilePhoto from "@/assets/profile-photo.png";
 import HeroParticles from "./HeroParticles";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 
-const ROLES = ['Data Analyst', 'BI Specialist', 'Data Scientist', 'Data Engineer', 'Prompt Engineer'];
+const ROLES = ['Data Analyst', 'BI Specialist', 'Data Scientist','Prompt Engineer'];
 
 const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
